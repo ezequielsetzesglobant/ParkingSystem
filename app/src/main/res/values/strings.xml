@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">ParkingSystem</string>
+    <string name="text_main_activity_parking">Parking space</string>
+    <string name="button_main_activity_set_spaces">Set amount of parking spaces</string>
 </resources>
