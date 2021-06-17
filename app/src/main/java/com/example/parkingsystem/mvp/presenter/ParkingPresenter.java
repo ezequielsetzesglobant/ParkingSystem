@@ -1,5 +1,6 @@
 package com.example.parkingsystem.mvp.presenter;
 
+import com.example.parkingsystem.listener.ListenerDialogFragment;
 import com.example.parkingsystem.mvp.contract.ParkingContract;
 
 public class ParkingPresenter implements ParkingContract.Presenter {
@@ -12,8 +13,13 @@ public class ParkingPresenter implements ParkingContract.Presenter {
         this.view = view;
     }
 
-    public void onSetParkingPlacesButtonPressed() {
-        model.setNumber();
-        view.showPopUp();
+    public void onSetParkingPlacesButtonPressed(int spaces) {
+        model.setSpaces(spaces);
+        view.showPopUp(model.getSpaces());
+    }
+
+    @Override
+    public void inflateDialog(ListenerDialogFragment listenerDialogFragment) {
+        view.showDialog(listenerDialogFragment);
     }
 }

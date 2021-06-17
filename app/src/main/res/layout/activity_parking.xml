@@ -6,11 +6,9 @@
 
     <TextView
         android:id="@+id/text_main_parking_title"
-        style="@style/TextMainStyle"
+        style="@style/TextViewMainStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/text_main_margin_top_normal"
-        android:gravity="center"
         android:text="@string/text_main_activity_parking"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -20,7 +18,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/button_main_activity_set_spaces"
-        android:textAllCaps="false"
         app:layout_constraintTop_toBottomOf="@id/text_main_parking_title" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
