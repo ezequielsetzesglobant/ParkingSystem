@@ -4,9 +4,13 @@ import com.example.parkingsystem.mvp.contract.ParkingContract;
 
 public class ParkingModel implements ParkingContract.Model {
 
-    private int number;
+    private int spaces;
 
-    public void setNumber() {
-        this.number = 5;
+    public void setSpaces(int spaces) {
+        this.spaces = spaces;
+    }
+
+    public int getSpaces() {
+        return spaces;
     }
 }

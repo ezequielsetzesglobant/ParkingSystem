@@ -1,16 +1,21 @@
 package com.example.parkingsystem.mvp.contract;
 
+import com.example.parkingsystem.listener.ListenerDialogFragment;
+
 public interface ParkingContract {
 
     interface Model {
-        void setNumber();
+        void setSpaces(int spaces);
+        int getSpaces();
     }
 
     interface Presenter {
-        void onSetParkingPlacesButtonPressed();
+        void onSetParkingPlacesButtonPressed(int spaces);
+        void inflateDialog(ListenerDialogFragment listenerDialogFragment);
     }
 
     interface View {
-        void showPopUp();
+        void showPopUp(int spaces);
+        void showDialog(ListenerDialogFragment listenerDialogFragment);
     }
 }
