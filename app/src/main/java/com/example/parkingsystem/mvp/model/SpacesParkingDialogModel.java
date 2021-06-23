@@ -17,6 +17,7 @@ public class SpacesParkingDialogModel implements SpacesParkingDialogContract.Dia
         }
     }
 
+    @Override
     public int getSpaces() {
         return spaces;
     }

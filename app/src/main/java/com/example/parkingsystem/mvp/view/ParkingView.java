@@ -3,7 +3,9 @@ package com.example.parkingsystem.mvp.view;
 import android.app.Activity;
 import android.app.FragmentManager;
 import android.content.Context;
+import android.content.Intent;
 import com.example.parkingsystem.R;
+import com.example.parkingsystem.activity.ReservationActivity;
 import com.example.parkingsystem.databinding.ActivityParkingBinding;
 import com.example.parkingsystem.fragment.SpacesParkingDialogFragment;
 import com.example.parkingsystem.listener.ListenerDialogFragment;
@@ -22,6 +24,17 @@ public class ParkingView extends ActivityView implements ParkingContract.View {
         this.binding = binding;
     }
 
+    @Override
+    public void showDialog(ListenerDialogFragment listenerDialogFragment) {
+        FragmentManager fragmentManager = getFragmentManager();
+        if (fragmentManager != null) {
+            SpacesParkingDialogFragment dialogFragment = SpacesParkingDialogFragment.newInstance(listenerDialogFragment);
+            dialogFragment.show(fragmentManager, TAG);
+            dialogFragment.setCancelable(false);
+        }
+    }
+
+    @Override
     public void showPopUp(int spaces) {
         Context context = getContext();
         if (context != null) {
@@ -30,12 +43,11 @@ public class ParkingView extends ActivityView implements ParkingContract.View {
     }
 
     @Override
-    public void showDialog(ListenerDialogFragment listenerDialogFragment) {
-        FragmentManager fragmentManager = getFragmentManager();
-        if (fragmentManager != null) {
-            SpacesParkingDialogFragment dialogFragment = SpacesParkingDialogFragment.newInstance(listenerDialogFragment);
-            dialogFragment.show(fragmentManager, TAG);
-            dialogFragment.setCancelable(false);
+    public void openReservationScreen() {
+        Activity activity = getActivity();
+        if (activity != null) {
+            Intent intent = new Intent(activity, ReservationActivity.class);
+            activity.startActivity(intent);
         }
     }
 }

@@ -6,16 +6,19 @@ public interface ParkingContract {
 
     interface Model {
         void setSpaces(int spaces);
+
         int getSpaces();
     }
 
     interface Presenter {
-        void onSetParkingPlacesButtonPressed(int spaces);
         void inflateDialog(ListenerDialogFragment listenerDialogFragment);
+        void onSetParkingPlacesButtonPressed(int spaces);
+        void onReservationButtonClicked();
     }
 
     interface View {
-        void showPopUp(int spaces);
         void showDialog(ListenerDialogFragment listenerDialogFragment);
+        void showPopUp(int spaces);
+        void openReservationScreen();
     }
 }
