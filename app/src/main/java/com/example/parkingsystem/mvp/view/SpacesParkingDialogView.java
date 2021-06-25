@@ -1,8 +1,8 @@
 package com.example.parkingsystem.mvp.view;
 
 import com.example.parkingsystem.databinding.FragmentSpacesParkingDialogBinding;
-import com.example.parkingsystem.listener.ListenerDialogFragment;
 import com.example.parkingsystem.fragment.SpacesParkingDialogFragment;
+import com.example.parkingsystem.listener.ListenerDialogFragment;
 import com.example.parkingsystem.mvp.contract.SpacesParkingDialogContract;
 import com.example.parkingsystem.mvp.view.base.FragmentView;
 

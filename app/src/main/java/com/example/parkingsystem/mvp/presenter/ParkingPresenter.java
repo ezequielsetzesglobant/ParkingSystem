@@ -13,13 +13,19 @@ public class ParkingPresenter implements ParkingContract.Presenter {
         this.view = view;
     }
 
+    @Override
+    public void inflateDialog(ListenerDialogFragment listenerDialogFragment) {
+        view.showDialog(listenerDialogFragment);
+    }
+
+    @Override
     public void onSetParkingPlacesButtonPressed(int spaces) {
         model.setSpaces(spaces);
         view.showPopUp(model.getSpaces());
     }
 
     @Override
-    public void inflateDialog(ListenerDialogFragment listenerDialogFragment) {
-        view.showDialog(listenerDialogFragment);
+    public void onReservationButtonClicked() {
+        view.openReservationScreen();
     }
 }
