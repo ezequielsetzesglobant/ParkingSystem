@@ -3,6 +3,7 @@ package com.example.parkingsystem.mvp.presenter;
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import com.example.parkingsystem.mvp.contract.ReservationContract;
+import com.example.parkingsystem.mvp.model.reservation.Reservation;
 
 public class ReservationPresenter implements ReservationContract.ReservationPresenterContract {
 
@@ -14,25 +15,32 @@ public class ReservationPresenter implements ReservationContract.ReservationPres
         this.view = view;
     }
 
-    public void createDate(DatePickerDialog.OnDateSetListener onDateSetListener) {
+    @Override
+    public void createDate(DatePickerDialog.OnDateSetListener onDateSetListener, boolean buttonFlag) {
+        model.setStartDateAndTime(buttonFlag);
         view.showDatePicker(onDateSetListener);
     }
 
     @Override
-    public void saveReservationDate(String date, TimePickerDialog.OnTimeSetListener onTimeSetListener) {
-        model.saveDate(date);
-        view.showDate(model.getDate());
+    public void saveReservationDate(int year, int month, int dayOfMonth, TimePickerDialog.OnTimeSetListener onTimeSetListener) {
+        model.saveDate(year, month, dayOfMonth);
         view.showTimePicker(onTimeSetListener);
     }
 
     @Override
-    public void saveReservationTime(String time) {
-        model.saveTime(time);
-        view.showTime(model.getTime());
+    public void saveReservationTime(int hour, int minute) {
+        model.saveTime(hour, minute);
+        view.showOkDateAndTime();
     }
 
     @Override
-    public void backToMainActivity() {
-        view.finishActivity();
+    public void saveReservationInformation(String securityCode, String place) {
+        model.saveReservation(securityCode, place);
+        Reservation reservation = model.getReservation(place, securityCode);
+        if (reservation != null) {
+            view.finishActivity(reservation);
+        } else {
+            view.showError();
+        }
     }
 }

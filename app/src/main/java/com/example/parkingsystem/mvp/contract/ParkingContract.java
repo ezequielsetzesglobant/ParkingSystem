@@ -6,7 +6,6 @@ public interface ParkingContract {
 
     interface Model {
         void setSpaces(int spaces);
-
         int getSpaces();
     }
 

@@ -14,9 +14,6 @@ import com.example.parkingsystem.mvp.view.ReservationView;
 
 public class ReservationActivity extends AppCompatActivity implements DatePickerDialog.OnDateSetListener, TimePickerDialog.OnTimeSetListener {
 
-    private static final String SLASH = "/";
-    private static final String TWO_POINTS = ":";
-
     private ActivityReservationBinding binding;
     private ReservationContract.ReservationPresenterContract presenter;
 
@@ -28,20 +25,23 @@ public class ReservationActivity extends AppCompatActivity implements DatePicker
 
         presenter = new ReservationPresenter(new ReservationModel(), new ReservationView(this, binding));
 
-        binding.buttonReservationActivityStartDate.setOnClickListener(view -> presenter.createDate(this));
-        binding.buttonReservationActivityFinishDate.setOnClickListener(view -> presenter.createDate(this));
-        binding.buttonReservationActivitySave.setOnClickListener(view -> presenter.backToMainActivity());
+        binding.buttonReservationActivityStartDate.setOnClickListener(view -> presenter.createDate(this, true));
+        binding.buttonReservationActivityFinishDate.setOnClickListener(view -> presenter.createDate(this, false));
+
+        binding.buttonReservationActivitySave.setOnClickListener(view -> {
+            String securityCode = binding.editTextReservationActivitySecurityCode.getText().toString();
+            String place = binding.editTextReservationActivityPlace.getText().toString();
+            presenter.saveReservationInformation(securityCode, place);
+        });
     }
 
     @Override
     public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-        String date = dayOfMonth + SLASH + month + SLASH + year;
-        presenter.saveReservationDate(date, this);
+        presenter.saveReservationDate(year, month, dayOfMonth, this);
     }
 
     @Override
     public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
-        String time = hourOfDay + TWO_POINTS + minute;
-        presenter.saveReservationTime(time);
+        presenter.saveReservationTime(hourOfDay, minute);
     }
 }

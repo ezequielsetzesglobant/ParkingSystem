@@ -2,28 +2,30 @@ package com.example.parkingsystem.mvp.contract;
 
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
+import com.example.parkingsystem.mvp.model.reservation.Reservation;
 
 public interface ReservationContract {
 
     interface ReservationModelContract {
-        void saveDate(String date);
-        String getDate();
-        void saveTime(String time);
-        String getTime();
+        void saveDate(int year, int month, int dayOfMonth);
+        void saveTime(int hour, int minute);
+        void saveReservation(String securityCode, String place);
+        Reservation getReservation(String place, String securityCode);
+        void setStartDateAndTime(boolean startDateAndTime);
     }
 
     interface ReservationPresenterContract {
-        void createDate(DatePickerDialog.OnDateSetListener onDateSetListener);
-        void saveReservationDate(String date, TimePickerDialog.OnTimeSetListener onTimeSetListener);
-        void saveReservationTime(String time);
-        void backToMainActivity();
+        void createDate(DatePickerDialog.OnDateSetListener onDateSetListener, boolean buttonFlag);
+        void saveReservationDate(int year, int month, int dayOfMonth, TimePickerDialog.OnTimeSetListener onTimeSetListener);
+        void saveReservationTime(int hourOfDay, int minute);
+        void saveReservationInformation(String securityCode, String place);
     }
 
     interface ReservationViewContract {
         void showDatePicker(DatePickerDialog.OnDateSetListener onDateSetListener);
-        void showDate(String date);
         void showTimePicker(TimePickerDialog.OnTimeSetListener onTimeSetListener);
-        void showTime(String time);
-        void finishActivity();
+        void finishActivity(Reservation reservation);
+        void showError();
+        void showOkDateAndTime();
     }
 }
