@@ -4,9 +4,11 @@ import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.content.Context;
+import android.widget.Toast;
 import com.example.parkingsystem.R;
 import com.example.parkingsystem.databinding.ActivityReservationBinding;
 import com.example.parkingsystem.mvp.contract.ReservationContract;
+import com.example.parkingsystem.mvp.model.reservation.Reservation;
 import com.example.parkingsystem.mvp.view.base.ActivityView;
 import com.google.android.material.snackbar.Snackbar;
 import java.util.Calendar;
@@ -36,14 +38,6 @@ public class ReservationView extends ActivityView implements ReservationContract
     }
 
     @Override
-    public void showDate(String date) {
-        Context context = getContext();
-        if (context != null) {
-            Snackbar.make(binding.getRoot(), context.getResources().getString(R.string.snack_bar_button_click_message_reservation_date_reservation_activity, date), Snackbar.LENGTH_SHORT).show();
-        }
-    }
-
-    @Override
     public void showTimePicker(TimePickerDialog.OnTimeSetListener onTimeSetListener) {
         final Calendar calendar = Calendar.getInstance();
         int hour = calendar.get(Calendar.HOUR_OF_DAY);
@@ -57,18 +51,28 @@ public class ReservationView extends ActivityView implements ReservationContract
     }
 
     @Override
-    public void showTime(String time) {
-        Context context = getContext();
-        if (context != null) {
-            Snackbar.make(binding.getRoot(), context.getResources().getString(R.string.snack_bar_button_click_message_reservation_time_reservation_activity, time), Snackbar.LENGTH_SHORT).show();
+    public void finishActivity(Reservation reservation) {
+        Activity activity = getActivity();
+        if (activity != null) {
+            activity.finish();
+            Toast.makeText(activity, activity.getResources().getString(
+                    R.string.toast_save_reservation_information_message_reservation_activity, reservation.getStartDateAndTimeFormated(), reservation.getFinishDateAndTimeFormated(), reservation.getSecurityCode(), reservation.getPlace()), Toast.LENGTH_LONG).show();
         }
     }
 
     @Override
-    public void finishActivity() {
+    public void showError() {
+        Context context = getContext();
+        if (context != null) {
+            Snackbar.make(binding.getRoot(), context.getResources().getString(R.string.snack_bar_save_reservation_error_message_reservation_activity), Snackbar.LENGTH_SHORT).show();
+        }
+    }
+
+    @Override
+    public void showOkDateAndTime() {
         Activity activity = getActivity();
         if (activity != null) {
-            activity.finish();
+            Toast.makeText(activity, activity.getResources().getString(R.string.toast_date_and_time_ok_message_reservation_activity), Toast.LENGTH_LONG).show();
         }
     }
 }
