@@ -16,8 +16,8 @@ public class ReservationPresenter implements ReservationContract.ReservationPres
     }
 
     @Override
-    public void createDate(DatePickerDialog.OnDateSetListener onDateSetListener, boolean buttonFlag) {
-        model.setStartDateAndTime(buttonFlag);
+    public void createDate(DatePickerDialog.OnDateSetListener onDateSetListener, boolean isStartDateAndTime) {
+        model.setStartDateAndTime(isStartDateAndTime);
         view.showDatePicker(onDateSetListener);
     }
 
@@ -37,10 +37,14 @@ public class ReservationPresenter implements ReservationContract.ReservationPres
     public void saveReservationInformation(String securityCode, String place) {
         model.saveReservation(securityCode, place);
         Reservation reservation = model.getReservation(place, securityCode);
-        if (reservation != null) {
-            view.finishActivity(reservation);
+        if (!model.thereWasOverlapOfReservations()) {
+            if (reservation != null) {
+                view.finishActivity(reservation);
+            } else {
+                view.showError();
+            }
         } else {
-            view.showError();
+            view.showOverlapMessage();
         }
     }
 }

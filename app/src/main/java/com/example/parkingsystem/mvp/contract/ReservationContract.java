@@ -12,6 +12,7 @@ public interface ReservationContract {
         void saveReservation(String securityCode, String place);
         Reservation getReservation(String place, String securityCode);
         void setStartDateAndTime(boolean startDateAndTime);
+        boolean thereWasOverlapOfReservations();
     }
 
     interface ReservationPresenterContract {
@@ -27,5 +28,6 @@ public interface ReservationContract {
         void finishActivity(Reservation reservation);
         void showError();
         void showOkDateAndTime();
+        void showOverlapMessage();
     }
 }

@@ -5,18 +5,18 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class ReservationInfomationDB {
+public class ReservationInformationDB {
 
-    private static ReservationInfomationDB reservationInfomation = null;
+    private static ReservationInformationDB reservationInfomation = null;
     private static Map<String, List<Reservation>> reservations;
 
-    private ReservationInfomationDB() {
+    private ReservationInformationDB() {
         reservations = new HashMap<>();
     }
 
-    public static ReservationInfomationDB getInstanceDB() {
+    public static ReservationInformationDB getInstanceDB() {
         if (reservationInfomation == null) {
-            reservationInfomation = new ReservationInfomationDB();
+            reservationInfomation = new ReservationInformationDB();
         }
         return reservationInfomation;
     }
