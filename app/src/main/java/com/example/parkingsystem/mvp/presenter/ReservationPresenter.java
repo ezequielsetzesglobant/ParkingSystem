@@ -30,7 +30,7 @@ public class ReservationPresenter implements ReservationContract.ReservationPres
     @Override
     public void saveReservationTime(int hour, int minute) {
         model.saveTime(hour, minute);
-        view.showOkDateAndTime();
+        view.showOkDateAndTime(model.getSavedDateAndTime());
     }
 
     @Override

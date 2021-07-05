@@ -8,8 +8,6 @@ import java.util.List;
 
 public class ReservationModel implements ReservationContract.ReservationModelContract {
 
-    private static final int ONE = 1;
-
     private ReservationInformationDB reservationInformationDB;
     private boolean isStartDateAndTime;
     private Calendar startDateAndTime = null;
@@ -21,12 +19,12 @@ public class ReservationModel implements ReservationContract.ReservationModelCon
         if (isStartDateAndTime) {
             startDateAndTime = Calendar.getInstance();
             startDateAndTime.set(Calendar.DAY_OF_MONTH, dayOfMonth);
-            startDateAndTime.set(Calendar.MONTH, month - ONE);
+            startDateAndTime.set(Calendar.MONTH, month);
             startDateAndTime.set(Calendar.YEAR, year);
         } else {
             finishDateAndTime = Calendar.getInstance();
             finishDateAndTime.set(Calendar.DAY_OF_MONTH, dayOfMonth);
-            finishDateAndTime.set(Calendar.MONTH, month - ONE);
+            finishDateAndTime.set(Calendar.MONTH, month);
             finishDateAndTime.set(Calendar.YEAR, year);
         }
     }
@@ -86,5 +84,15 @@ public class ReservationModel implements ReservationContract.ReservationModelCon
     @Override
     public void setStartDateAndTime(boolean startDateAndTime) {
         this.isStartDateAndTime = startDateAndTime;
+    }
+
+    @Override
+    public String getSavedDateAndTime() {
+        Reservation reservation = new Reservation(startDateAndTime, finishDateAndTime, null, null);
+        if (isStartDateAndTime) {
+            return reservation.getStartDateAndTimeFormated();
+        } else {
+            return reservation.getFinishDateAndTimeFormated();
+        }
     }
 }
