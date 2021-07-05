@@ -55,8 +55,7 @@ public class ReservationView extends ActivityView implements ReservationContract
         Activity activity = getActivity();
         if (activity != null) {
             activity.finish();
-            Toast.makeText(activity, activity.getResources().getString(
-                    R.string.toast_save_reservation_information_message_reservation_activity, reservation.getStartDateAndTimeFormated(), reservation.getFinishDateAndTimeFormated(), reservation.getSecurityCode(), reservation.getPlace()), Toast.LENGTH_LONG).show();
+            Toast.makeText(activity, activity.getResources().getString(R.string.toast_save_reservation_information_message_reservation_activity, reservation.getStartDateAndTimeFormated(), reservation.getFinishDateAndTimeFormated(), reservation.getSecurityCode(), reservation.getPlace()), Toast.LENGTH_LONG).show();
         }
     }
 
@@ -73,6 +72,14 @@ public class ReservationView extends ActivityView implements ReservationContract
         Activity activity = getActivity();
         if (activity != null) {
             Toast.makeText(activity, activity.getResources().getString(R.string.toast_date_and_time_ok_message_reservation_activity), Toast.LENGTH_LONG).show();
+        }
+    }
+
+    @Override
+    public void showOverlapMessage() {
+        Context context = getContext();
+        if (context != null) {
+            Snackbar.make(binding.getRoot(), context.getResources().getString(R.string.snack_bar_overlap_message_reservation_activity), Snackbar.LENGTH_SHORT).show();
         }
     }
 }

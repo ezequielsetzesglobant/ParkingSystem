@@ -2,17 +2,19 @@ package com.example.parkingsystem.mvp.model;
 
 import com.example.parkingsystem.mvp.contract.ReservationContract;
 import com.example.parkingsystem.mvp.model.reservation.Reservation;
-import com.example.parkingsystem.mvp.model.reservation.ReservationInfomationDB;
+import com.example.parkingsystem.mvp.model.reservation.ReservationInformationDB;
 import java.util.Calendar;
+import java.util.List;
 
 public class ReservationModel implements ReservationContract.ReservationModelContract {
 
     private static final int ONE = 1;
 
-    private ReservationInfomationDB reservationInfomationDB;
+    private ReservationInformationDB reservationInformationDB;
     private boolean isStartDateAndTime;
     private Calendar startDateAndTime = null;
     private Calendar finishDateAndTime = null;
+    private boolean overlap = false;
 
     @Override
     public void saveDate(int year, int month, int dayOfMonth) {
@@ -43,16 +45,40 @@ public class ReservationModel implements ReservationContract.ReservationModelCon
     @Override
     public void saveReservation(String securityCode, String place) {
         if (startDateAndTime != null && finishDateAndTime != null && !securityCode.isEmpty() && !place.isEmpty()) {
-            reservationInfomationDB = ReservationInfomationDB.getInstanceDB();
+            reservationInformationDB = ReservationInformationDB.getInstanceDB();
             Reservation reservation = new Reservation(startDateAndTime, finishDateAndTime, securityCode, place);
-            reservationInfomationDB.putReservationDB(reservation);
+            if (!isOverlap(reservation)) {
+                reservationInformationDB.putReservationDB(reservation);
+            }
         }
+    }
+
+    private boolean isOverlap(Reservation reservation) {
+        List<Reservation> reservationList = reservationInformationDB.getReservationsDB(reservation.getPlace());
+        if (reservationList != null) {
+            for (Reservation res : reservationList) {
+                if (!(reservation.getStartDateAndTime().after(res.getFinishDateAndTime()) || reservation.getFinishDateAndTime().before(res.getStartDateAndTime()))) {
+                    overlap = true;
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    @Override
+    public boolean thereWasOverlapOfReservations() {
+        if (overlap) {
+            overlap = false;
+            return true;
+        }
+        return false;
     }
 
     @Override
     public Reservation getReservation(String place, String securityCode) {
-        if (reservationInfomationDB != null) {
-            return reservationInfomationDB.getReservationDB(place, securityCode);
+        if (reservationInformationDB != null) {
+            return reservationInformationDB.getReservationDB(place, securityCode);
         }
         return null;
     }
