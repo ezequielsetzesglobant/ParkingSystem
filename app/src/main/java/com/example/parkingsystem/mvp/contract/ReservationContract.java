@@ -13,6 +13,7 @@ public interface ReservationContract {
         Reservation getReservation(String place, String securityCode);
         void setStartDateAndTime(boolean startDateAndTime);
         boolean thereWasOverlapOfReservations();
+        String getSavedDateAndTime();
     }
 
     interface ReservationPresenterContract {
@@ -27,7 +28,7 @@ public interface ReservationContract {
         void showTimePicker(TimePickerDialog.OnTimeSetListener onTimeSetListener);
         void finishActivity(Reservation reservation);
         void showError();
-        void showOkDateAndTime();
+        void showOkDateAndTime(String savedDateAndTime);
         void showOverlapMessage();
     }
 }

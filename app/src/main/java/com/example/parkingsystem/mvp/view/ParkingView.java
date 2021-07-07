@@ -36,10 +36,7 @@ public class ParkingView extends ActivityView implements ParkingContract.View {
 
     @Override
     public void showPopUp(int spaces) {
-        Context context = getContext();
-        if (context != null) {
-            Snackbar.make(binding.getRoot(), context.getResources().getString(R.string.snack_bar_button_click_message_main_activity, String.valueOf(spaces)), Snackbar.LENGTH_SHORT).show();
-        }
+        showSnackbar(R.string.snack_bar_button_click_message_main_activity, spaces);
     }
 
     @Override
@@ -48,6 +45,20 @@ public class ParkingView extends ActivityView implements ParkingContract.View {
         if (activity != null) {
             Intent intent = new Intent(activity, ReservationActivity.class);
             activity.startActivity(intent);
+        }
+    }
+
+    @Override
+    public void showAmountOfReservationsReleased(int releasedReservations) {
+        showSnackbar(R.string.snack_bar_released_reservations_message_main_activity, releasedReservations);
+    }
+
+    private void showSnackbar(int resourceStrings, int parameterValue) {
+        Context context = getContext();
+        if (context != null) {
+            Snackbar.make(binding.getRoot(),
+                    context.getResources().getString(resourceStrings, String.valueOf(parameterValue)),
+                    Snackbar.LENGTH_SHORT).show();
         }
     }
 }

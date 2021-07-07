@@ -24,6 +24,7 @@ public class ParkingActivity extends AppCompatActivity implements ListenerDialog
 
         binding.buttonMainSetAmountParkingSpaces.setOnClickListener(view -> presenter.inflateDialog(this));
         binding.buttonMainReservation.setOnClickListener(view -> presenter.onReservationButtonClicked());
+        binding.buttonMainRealeseParking.setOnClickListener(view -> presenter.onReleaseParkingButtonClicked());
     }
 
     @Override
