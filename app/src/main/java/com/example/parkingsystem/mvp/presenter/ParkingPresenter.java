@@ -26,6 +26,7 @@ public class ParkingPresenter implements ParkingContract.Presenter {
 
     @Override
     public void onReservationButtonClicked() {
+        model.releaseParking();
         view.openReservationScreen();
     }
 
