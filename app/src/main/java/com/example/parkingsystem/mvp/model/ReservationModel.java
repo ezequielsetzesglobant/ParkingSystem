@@ -14,6 +14,10 @@ public class ReservationModel implements ReservationContract.ReservationModelCon
     private Calendar finishDateAndTime = null;
     private boolean overlap = false;
 
+    public ReservationModel(ReservationInformationDB reservationInformationDB) {
+        this.reservationInformationDB = reservationInformationDB;
+    }
+
     @Override
     public void saveDate(int year, int month, int dayOfMonth) {
         if (isStartDateAndTime) {
@@ -43,7 +47,6 @@ public class ReservationModel implements ReservationContract.ReservationModelCon
     @Override
     public void saveReservation(String securityCode, String place) {
         if (startDateAndTime != null && finishDateAndTime != null && !securityCode.isEmpty() && !place.isEmpty()) {
-            reservationInformationDB = ReservationInformationDB.getInstanceDB();
             Reservation reservation = new Reservation(startDateAndTime, finishDateAndTime, securityCode, place);
             if (!isOverlap(reservation)) {
                 reservationInformationDB.putReservationDB(reservation);
