@@ -9,6 +9,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.example.parkingsystem.databinding.ActivityReservationBinding;
 import com.example.parkingsystem.mvp.contract.ReservationContract;
 import com.example.parkingsystem.mvp.model.ReservationModel;
+import com.example.parkingsystem.mvp.model.reservation.ReservationInformationDB;
 import com.example.parkingsystem.mvp.presenter.ReservationPresenter;
 import com.example.parkingsystem.mvp.view.ReservationView;
 
@@ -23,7 +24,7 @@ public class ReservationActivity extends AppCompatActivity implements DatePicker
         binding = ActivityReservationBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-        presenter = new ReservationPresenter(new ReservationModel(), new ReservationView(this, binding));
+        presenter = new ReservationPresenter(new ReservationModel(ReservationInformationDB.getInstanceDB()), new ReservationView(this, binding));
 
         binding.buttonReservationActivityStartDate.setOnClickListener(view -> presenter.createDate(this, true));
         binding.buttonReservationActivityFinishDate.setOnClickListener(view -> presenter.createDate(this, false));
